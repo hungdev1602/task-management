@@ -1,23 +1,9 @@
-const express = require("express");
-const app = express();
-const port = 3000;
-
-// env
-require('dotenv').config();
-
-// database connect
-const database = require("./config/database");
-database.connect();
-
-// routes
-const routeClient = require("./routes/index.route");
-routeClient.index(app);
-
 // cors
 const cors = require("cors");
 const allowedOrigins = ["http://localhost:3000", "http://localhost:5173"];
 
-app.use(
+module.exports.index = (app) => {
+  app.use(
     cors({
         origin: function(origin, callback) {
             if (!origin) return callback(null, true);
@@ -31,7 +17,4 @@ app.use(
         }
     })
   );
-
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-})
+}
